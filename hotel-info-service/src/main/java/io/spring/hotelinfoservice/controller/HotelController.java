@@ -1,17 +1,26 @@
 package io.spring.hotelinfoservice.controller;
 
-import io.spring.hotelinfoservice.model.Hotel;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hotel")
 public class HotelController {
 
-    @RequestMapping("/{hotelId}")
-    public Hotel getHotelInfo(@PathVariable String hotelId){
-        return new Hotel(hotelId,"Super 8");
+    @Value("${spring.application.name:no name}")
+    private String appName;
 
+    @Value("${server.port}")
+    private String port;
+
+    @GetMapping("/hotel")
+    public String hotel(){
+        return "List of hotel";
+    }
+
+    @GetMapping("/location")
+    public String getHotelServiceLocation(){
+        return appName + " : " + port;
     }
 }

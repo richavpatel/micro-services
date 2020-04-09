@@ -1,19 +1,27 @@
 package io.spring.ratingsinfoservice.controller;
 
-import io.spring.ratingsinfoservice.model.Rating;
-import io.spring.ratingsinfoservice.model.UserRating;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ratings")
 public class RatingsController {
 
-    @RequestMapping("/{hotelId}")
-    public Rating getHotelRating(@PathVariable String hotelId){
-        return  new Rating(hotelId, 4);
-    }
+        @Value("${spring.application.name:no name}")
+        private String appName;
 
-    //userRating method
+        @Value("${server.port}")
+        private String port;
+
+        @GetMapping("/ratings")
+        public String hotel(){
+            return "List of ratings";
+        }
+
+        @GetMapping("/location")
+        public String getHotelServiceLocation(){
+            return appName + " : " + port;
+        }
+
 }
